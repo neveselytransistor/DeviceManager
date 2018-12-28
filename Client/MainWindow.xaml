@@ -47,7 +47,7 @@
                     <Button x:Name="CreateButton" Content="Create" HorizontalAlignment="Left" Margin="677,10,0,0" VerticalAlignment="Top" Width="75" Click="CreateButton_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="TabItem">
+            <TabItem Header="Brand">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="38*"/>
@@ -55,7 +55,7 @@
                     </Grid.ColumnDefinitions>
                 </Grid>
             </TabItem>
-            <TabItem Header="TabItem" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="57">
+            <TabItem Header="Tools" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="57">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>

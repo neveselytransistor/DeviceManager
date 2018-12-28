@@ -40,7 +40,16 @@ namespace Client
                 Price = price,
                 Info = InfoTextBox.Text
             };
-            await _equipmentService.CreateAsync(entity);
+            try
+            {
+                await _equipmentService.CreateAsync(entity);
+                Close();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Server error");
+            }
+            
         }
     }
 }

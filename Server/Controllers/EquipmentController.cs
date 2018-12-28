@@ -9,6 +9,7 @@ using Server.Services;
 
 namespace Server.Controllers
 {
+    [Route("Equipment")]
     public class EquipmentController : Controller
     {
         private readonly IEquipmentService _equipmentService;
@@ -32,14 +33,14 @@ namespace Server.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("Update")]
         public async Task<IActionResult> Update([FromBody] Equipment entity)
         {
             await _equipmentService.UpdateAsync(entity);
             return Ok();
         }
 
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] Equipment entity)
         {
             await _equipmentService.AddAsync(entity);
