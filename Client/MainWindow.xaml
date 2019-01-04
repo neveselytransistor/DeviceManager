@@ -10,7 +10,12 @@
         <TabControl HorizontalAlignment="Left" Height="386" Margin="20,24,0,0" VerticalAlignment="Top" Width="762">
             <TabItem Header="Equipment">
                 <Grid Background="#FFFDFDFD">
-                    <DataGrid Name="EquipmentDataGrid"  HorizontalAlignment="Left" Height="306" VerticalAlignment="Top" Width="752" AutoGenerateColumns="False" Margin="0,48,0,-0.4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="91*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="659*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Name="EquipmentDataGrid"  HorizontalAlignment="Left" Height="306" VerticalAlignment="Top" Width="752" AutoGenerateColumns="False" Margin="0,48,0,0" Grid.ColumnSpan="3">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="120" Header="Brand" Binding="{Binding Path=Brand.Name }"/>
                             <DataGridTextColumn Width="120" Header="Tool" Binding="{Binding Path=Tool.Name }"/>
@@ -44,15 +49,44 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="CreateButton" Content="Create" HorizontalAlignment="Left" Margin="677,10,0,0" VerticalAlignment="Top" Width="75" Click="CreateButton_Click"/>
+                    <Button x:Name="CreateButton" Content="Create" HorizontalAlignment="Left" Margin="580.2,10,0,0" VerticalAlignment="Top" Width="75" Click="CreateButton_Click" Grid.Column="2"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Brand">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="38*"/>
-                        <ColumnDefinition Width="7*"/>
-                    </Grid.ColumnDefinitions>
+                <Grid Background="#FFFDFDFD">
+                    <DataGrid Name="BrandDataGrid"  HorizontalAlignment="Left" Height="306" VerticalAlignment="Top" Width="752" AutoGenerateColumns="False" Margin="0,48,0,-0.4">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="120" Header="Brand" Binding="{Binding Path=Name }"/>
+                            <DataGridTemplateColumn Width="220">
+                                <DataGridTemplateColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="Information"></TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.HeaderTemplate>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=Info}"></TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="100*">
+                                <DataGridTemplateColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="Actions"></TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.HeaderTemplate>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Width="80" x:Name="EditBrandButton" Content="Edit" Click="EditBrandButton_Click"></Button>
+                                            <Button Width="80" x:Name="DeleteBrandButton" Content="Delete" Click="DeleteBrandButton_Click"></Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="CreateBrandButton" Content="Create" HorizontalAlignment="Left" Margin="677,10,0,0" VerticalAlignment="Top" Width="75" Click="CreateBrandButton_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Tools" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="57">

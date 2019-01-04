@@ -24,18 +24,26 @@ namespace Client
     public partial class MainWindow : Window
     {
         private readonly EquipmentService _equipmentService;
+        private readonly BrandService _brandService;
+        public static DataGrid PublicEquipDataGrid;
+        public static DataGrid PublicBrandDataGrid;
 
         public MainWindow()
         {
             InitializeComponent();
             _equipmentService = new EquipmentService();
+            _brandService = new BrandService();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var equipments = new List<Equipment>(); //await _equipmentService.GetAllAsync();
+            var equipments = await _equipmentService.GetAllAsync();
             EquipmentDataGrid.ItemsSource = equipments;
+            PublicEquipDataGrid = EquipmentDataGrid;
 
+            var brands = await _brandService.GetAllAsync();
+            BrandDataGrid.ItemsSource = brands;
+            PublicBrandDataGrid = BrandDataGrid;
         }
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
@@ -50,13 +58,33 @@ namespace Client
 
         private void ShowEditWindow()
         {
-            var createWindow = new EditWindow();
+            var id = ((Equipment) EquipmentDataGrid.SelectedItem ?? new Equipment()).Id;
+            var createWindow = new EditWindow(id);
             createWindow.ShowDialog();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void EditBrandButton_Click(object sender, RoutedEventArgs e)
+        {
+            var id = ((Brand)BrandDataGrid.SelectedItem ?? new Brand()).Id;
+            var createWindow = new EditBrand(id);
+            createWindow.ShowDialog();
+        }
+
+        private void DeleteBrandButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CreateBrandButton_Click(object sender, RoutedEventArgs e)
+        {
+            var id = ((Brand)BrandDataGrid.SelectedItem ?? new Brand()).Id;
+            var createWindow = new EditBrand(id);
+            createWindow.ShowDialog();
         }
     }
 }

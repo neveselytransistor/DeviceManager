@@ -57,12 +57,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EditBrand.xaml.cs">
+      <DependentUpon>EditBrand.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditWindow.xaml.cs">
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="RestClient.cs" />
+    <Compile Include="Services\BrandService.cs" />
     <Compile Include="Services\EquipmentService.cs" />
+    <Compile Include="Services\IBrandService.cs" />
     <Compile Include="Services\IEquipmentService.cs" />
+    <Page Include="EditBrand.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

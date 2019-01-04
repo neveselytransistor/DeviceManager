@@ -7,38 +7,38 @@ using Client.Models;
 
 namespace Client.Services
 {
-    public class EquipmentService : IEquipmentService
+    public class BrandService : IBrandService
     {
 
-        public async Task<List<Equipment>> GetAllAsync()
+        public async Task<List<Brand>> GetAllAsync()
         {
             using (var restClient = new RestClient())
             {
-                return await restClient.GetAsync<List<Equipment>>("/Equipment/GetAll");
+                return await restClient.GetAsync<List<Brand>>("/Brand/GetAll");
             }
         }
 
-        public async Task<Equipment> GetAsync(int id)
+        public async Task<Brand> GetAsync(int id)
         {
             using (var restClient = new RestClient())
             {
-                return await restClient.GetAsync<Equipment>($"/Equipment/{id}");
+                return await restClient.GetAsync<Brand>($"/Brand/{id}");
             }
         }
 
-        public async Task UpdateAsync(Equipment entity)
+        public async Task UpdateAsync(Brand entity)
         {
             using (var restClient = new RestClient())
             {
-                await restClient.PostAsync("/Equipment/Update", entity);
+                await restClient.PostAsync("/Brand/Update", entity);
             }
         }
 
-        public async Task CreateAsync(Equipment entity)
+        public async Task CreateAsync(Brand entity)
         {
             using (var restClient = new RestClient())
             {
-                await restClient.PostAsync("/Equipment/Create", entity);
+                await restClient.PostAsync("/Brand/Create", entity);
             }
         }
 
@@ -46,7 +46,7 @@ namespace Client.Services
         {
             using (var restClient = new RestClient())
             {
-                await restClient.DeleteAsync($"/Equipment/{id}");
+                await restClient.DeleteAsync($"/Brand/{id}");
             }
         }
     }

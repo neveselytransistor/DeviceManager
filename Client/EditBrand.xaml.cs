@@ -17,50 +17,45 @@ using Client.Services;
 namespace Client
 {
     /// <summary>
-    /// Interaction logic for EditWindow.xaml
+    /// Interaction logic for EditBrand.xaml
     /// </summary>
-    public partial class EditWindow : Window
+    public partial class EditBrand : Window
     {
-        private readonly EquipmentService _equipmentService = new EquipmentService();
+        private readonly BrandService _brandService = new BrandService();
         private readonly int _id;
 
-        public EditWindow(int selectedId)
+        public EditBrand(int id)
         {
+            _id = id;
             InitializeComponent();
-            _id = selectedId;
         }
 
         private async void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!decimal.TryParse(PriceTextBox.Text, out var price))
-            {
-                MessageBox.Show("Incorrect price");
-            }
 
-            var entity = _id == 0 ? new Equipment() : await _equipmentService.GetAsync(_id);
+            var entity = _id == 0 ? new Brand() : await _brandService.GetAsync(_id);
 
-            entity.Price = price;
-            entity.Info = InfoTextBox.Text;
+            entity.Name = BrandNameTextBox.Text;
+            entity.Info = BrandInfoTextBox.Text;
 
             try
             {
                 if (_id == 0)
                 {
-                    await _equipmentService.CreateAsync(entity);
+                    await _brandService.CreateAsync(entity);
                 }
                 else
                 {
-                    await _equipmentService.UpdateAsync(entity);
+                    await _brandService.UpdateAsync(entity);
                 }
-                
-                MainWindow.PublicEquipDataGrid.ItemsSource = await _equipmentService.GetAllAsync();
+
+                MainWindow.PublicBrandDataGrid.ItemsSource = await _brandService.GetAllAsync();
                 Close();
             }
             catch (Exception exception)
             {
                 MessageBox.Show("Server error");
             }
-            
         }
     }
 }

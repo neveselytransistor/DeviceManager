@@ -45,8 +45,8 @@ namespace Server.Services
 
         public async Task DeleteAsync(int id)
         {
-            var contact = await _context.Equipment.FindAsync(id);
-            _context.Equipment.Remove(contact);
+            var entity = await _context.Equipment.FindAsync(id);
+            _context.Equipment.Remove(entity);
             await _context.SaveChangesAsync();
         }
     }

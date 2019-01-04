@@ -9,48 +9,48 @@ using Server.Services;
 
 namespace Server.Controllers
 {
-    [Route("Equipment")]
-    public class EquipmentController : Controller
+    [Route("Brand")]
+    public class BrandController : Controller
     {
-        private readonly IEquipmentService _equipmentService;
+        private readonly IBrandService _entityService;
 
-        public EquipmentController(IEquipmentService equipmentService)
+        public BrandController(IBrandService entityService)
         {
-            _equipmentService = equipmentService;
+            _entityService = entityService;
         }
 
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _equipmentService.GetAllAsync();
+            var result = await _entityService.GetAllAsync();
             return Ok(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var result = await _equipmentService.GetByIdAsync(id);
+            var result = await _entityService.GetByIdAsync(id);
             return Ok(result);
         }
 
         [HttpPost("Update")]
-        public async Task<IActionResult> Update([FromBody] Equipment entity)
+        public async Task<IActionResult> Update([FromBody] Brand entity)
         {
-            await _equipmentService.UpdateAsync(entity);
+            await _entityService.UpdateAsync(entity);
             return Ok();
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create([FromBody] Equipment entity)
+        public async Task<IActionResult> Create([FromBody] Brand entity)
         {
-            await _equipmentService.AddAsync(entity);
+            await _entityService.AddAsync(entity);
             return Ok();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _equipmentService.DeleteAsync(id);
+            await _entityService.DeleteAsync(id);
             return Ok();
         }
     }
