@@ -30,7 +30,7 @@ namespace Client.Services
         {
             using (var restClient = new RestClient())
             {
-                await restClient.PostAsync("/Equipment/Update", entity);
+                await restClient.PostAsync<object>("/Equipment/Update", entity);
             }
         }
 
@@ -38,7 +38,7 @@ namespace Client.Services
         {
             using (var restClient = new RestClient())
             {
-                await restClient.PostAsync("/Equipment/Create", entity);
+                await restClient.PostAsync<object>("/Equipment/Create", entity);
             }
         }
 

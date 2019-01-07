@@ -4,11 +4,11 @@
     {
         public int Id { get; set; }
 
-        public int BrandId { get; set; }
+        public int? BrandId { get; set; }
 
         public Brand Brand { get; set; }
 
-        public int ToolId { get; set; }
+        public int? ToolId { get; set; }
 
         public Tool Tool { get; set; }
 

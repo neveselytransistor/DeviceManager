@@ -29,7 +29,7 @@ namespace Client
             return JsonConvert.DeserializeObject<T>(content);
         }
 
-        public async Task PostAsync(string path, object data)
+        public async Task<T> PostAsync<T>(string path, object data)
         {
             var json = JsonConvert.SerializeObject(data);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -39,6 +39,8 @@ namespace Client
             {
                 throw new Exception();
             }
+            var result = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(result);
         }
 
         public async Task DeleteAsync(string path)

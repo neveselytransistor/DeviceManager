@@ -5,13 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        Title="EditWindow" Height="450" Width="800">
+        Title="EditWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="584*"/>
+            <ColumnDefinition Width="43*"/>
+            <ColumnDefinition Width="167*"/>
+        </Grid.ColumnDefinitions>
         <TextBox Name="PriceTextBox" HorizontalAlignment="Left" Height="23" Margin="227,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="189"/>
-        <ComboBox Name="BrandComboBox" HorizontalAlignment="Left" Margin="227,107,0,0" VerticalAlignment="Top" Width="189" Height="24"/>
+        <ComboBox DisplayMemberPath="Name" Name="BrandComboBox" HorizontalAlignment="Left" Margin="227,107,0,0" VerticalAlignment="Top" Width="189" Height="24"/>
         <ComboBox Name="ToolComboBox" HorizontalAlignment="Left" Margin="227,160,0,0" VerticalAlignment="Top" Width="189" Height="24"/>
-        <Button x:Name="OkButton" Content="Ok" HorizontalAlignment="Left" Margin="513,359,0,0" VerticalAlignment="Top" Width="75" Click="OkButton_Click"/>
-        <Button x:Name="CancelButton" IsCancel="True" Content="Cancel" HorizontalAlignment="Left" Margin="628,359,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="OkButton" Content="Ok" HorizontalAlignment="Left" Margin="513,359,0,0" VerticalAlignment="Top" Width="75" Click="OkButton_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="CancelButton" IsCancel="True" Content="Cancel" HorizontalAlignment="Left" Margin="1.6,359,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2"/>
         <Border BorderThickness="1" BorderBrush="Gray" HorizontalAlignment="Left" Margin="227,239,0,0" VerticalAlignment="Top" Height="90" Width="189">
             <TextBox x:Name="InfoTextBox" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"></TextBox>
         </Border>

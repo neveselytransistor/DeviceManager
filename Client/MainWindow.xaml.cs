@@ -3,16 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Client.Models;
 using Client.Services;
 
@@ -37,53 +30,96 @@ namespace Client
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var equipments = await _equipmentService.GetAllAsync();
-            EquipmentDataGrid.ItemsSource = equipments;
-            PublicEquipDataGrid = EquipmentDataGrid;
+            IsEnabled = false;
 
-            var brands = await _brandService.GetAllAsync();
-            BrandDataGrid.ItemsSource = brands;
-            PublicBrandDataGrid = BrandDataGrid;
+            var attempts = 0;
+            var total = 5;
+
+            while (attempts < total)
+            {
+                try
+                {
+                    var equipments = await _equipmentService.GetAllAsync();
+                    EquipmentDataGrid.ItemsSource = equipments;
+                    PublicEquipDataGrid = EquipmentDataGrid;
+
+                    var brands = await _brandService.GetAllAsync();
+                    BrandDataGrid.ItemsSource = brands;
+                    PublicBrandDataGrid = BrandDataGrid;
+
+                    IsEnabled = true;
+
+                    break;
+                }
+                catch (Exception)
+                {
+                    attempts++;
+                    Thread.Sleep(1000);
+                }
+            }
+
+            if (attempts == total)
+            {
+                MessageBox.Show(
+                    "Сервер недоступен",
+                    "Ошибка",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+
+                Environment.Exit(1);
+            }
         }
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            ShowEditWindow();
+            var createWindow = new EditWindow(0);
+            createWindow.ShowDialog();
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            ShowEditWindow();
+            if (EquipmentDataGrid.SelectedItem is Equipment eq)
+            {
+                var id = eq.Id;
+                var createWindow = new EditWindow(id);
+                createWindow.ShowDialog();
+            }
         }
 
-        private void ShowEditWindow()
+        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            var id = ((Equipment) EquipmentDataGrid.SelectedItem ?? new Equipment()).Id;
-            var createWindow = new EditWindow(id);
-            createWindow.ShowDialog();
-        }
-
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
-        {
-
+            if (EquipmentDataGrid.SelectedItem is Equipment eq)
+            {
+                var id = eq.Id;
+                await _equipmentService.DeleteAsync(id);
+                EquipmentDataGrid.ItemsSource = await _equipmentService.GetAllAsync();
+            }
         }
 
         private void EditBrandButton_Click(object sender, RoutedEventArgs e)
         {
-            var id = ((Brand)BrandDataGrid.SelectedItem ?? new Brand()).Id;
-            var createWindow = new EditBrand(id);
-            createWindow.ShowDialog();
+            if (BrandDataGrid.SelectedItem is Brand br)
+            {
+                var id = br.Id;
+                var createWindow = new EditBrand(id);
+                createWindow.ShowDialog();
+            }
         }
 
-        private void DeleteBrandButton_Click(object sender, RoutedEventArgs e)
+        private async void DeleteBrandButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (BrandDataGrid.SelectedItem is Brand br)
+            {
+                var id = br.Id;
+                await _brandService.DeleteAsync(id);
+                BrandDataGrid.ItemsSource = await _brandService.GetAllAsync();
+            }
         }
 
         private void CreateBrandButton_Click(object sender, RoutedEventArgs e)
         {
-            var id = ((Brand)BrandDataGrid.SelectedItem ?? new Brand()).Id;
-            var createWindow = new EditBrand(id);
+            var createWindow = new EditBrand(0);
             createWindow.ShowDialog();
         }
     }

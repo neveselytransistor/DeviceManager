@@ -11,5 +11,6 @@ namespace Server.Services
         Task AddAsync(Brand entity);
         Task UpdateAsync(Brand entity);
         Task DeleteAsync(int id);
+        Task<string> ExportToCsv();
     }
 }

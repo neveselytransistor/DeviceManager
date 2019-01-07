@@ -30,7 +30,7 @@ namespace Client.Services
         {
             using (var restClient = new RestClient())
             {
-                await restClient.PostAsync("/Brand/Update", entity);
+                await restClient.PostAsync<object>("/Brand/Update", entity);
             }
         }
 
@@ -38,7 +38,7 @@ namespace Client.Services
         {
             using (var restClient = new RestClient())
             {
-                await restClient.PostAsync("/Brand/Create", entity);
+                await restClient.PostAsync<object>("/Brand/Create", entity);
             }
         }
 
@@ -47,6 +47,15 @@ namespace Client.Services
             using (var restClient = new RestClient())
             {
                 await restClient.DeleteAsync($"/Brand/{id}");
+            }
+        }
+
+        public async Task<string> Export()
+        {
+            using (var restClient = new RestClient())
+            {
+                //await restClient.PostAsync()
+                return null;
             }
         }
     }

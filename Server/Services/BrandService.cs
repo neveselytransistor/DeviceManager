@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Server.Models;
@@ -46,6 +48,23 @@ namespace Server.Services
             var entity = await _context.Brand.FindAsync(id);
             _context.Brand.Remove(entity);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<string> ExportToCsv()
+        {
+            var dbData = await GetAllAsync();
+
+            var columnHeaders = new string[]
+            {
+                "Name",
+                "Info"
+            };
+            var csvData = new StringBuilder();
+
+            dbData.ForEach(row => { csvData.AppendLine(string.Join(",", row)); });
+            var result = $"{string.Join(",", columnHeaders)}\r\n{csvData.ToString()}";
+            
+            return result;
         }
     }
 }

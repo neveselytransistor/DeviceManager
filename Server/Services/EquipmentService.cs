@@ -17,7 +17,10 @@ namespace Server.Services
 
         public async Task<List<Equipment>> GetAllAsync()
         {
-            return await _context.Equipment.ToListAsync();
+            return await _context.Equipment
+                .Include(x => x.Brand)
+                .Include(x => x.Tool)
+                .ToListAsync();
         }
 
         public async Task<Equipment> GetByIdAsync(int id)
@@ -49,5 +52,7 @@ namespace Server.Services
             _context.Equipment.Remove(entity);
             await _context.SaveChangesAsync();
         }
+
+        
     }
 }

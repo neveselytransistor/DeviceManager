@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -52,6 +53,15 @@ namespace Server.Controllers
         {
             await _entityService.DeleteAsync(id);
             return Ok();
+        }
+
+        [HttpPost("Export")]
+        public async Task<IActionResult> Export()
+        {
+            var resultString = await _entityService.ExportToCsv();
+            //byte[] buffer = Encoding.ASCII.GetBytes(resultString);
+            //return File(buffer, "text/csv", $"Brand.csv");
+            return Ok(resultString);
         }
     }
 }
