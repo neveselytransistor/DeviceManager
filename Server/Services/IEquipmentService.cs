@@ -11,5 +11,6 @@ namespace Server.Services
         Task AddAsync(Equipment entity);
         Task UpdateAsync(Equipment entity);
         Task DeleteAsync(int id);
+        Task<string> ExportToCsv();
     }
 }

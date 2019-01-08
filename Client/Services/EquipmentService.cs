@@ -49,5 +49,13 @@ namespace Client.Services
                 await restClient.DeleteAsync($"/Equipment/{id}");
             }
         }
+
+        public async Task<string> Export()
+        {
+            using (var restClient = new RestClient())
+            {
+                return await restClient.PostAsync("/Equipment/Export");
+            }
+        }
     }
 }

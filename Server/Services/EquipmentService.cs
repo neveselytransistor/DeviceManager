@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Server.Models;
@@ -53,6 +54,25 @@ namespace Server.Services
             await _context.SaveChangesAsync();
         }
 
-        
+        public async Task<string> ExportToCsv()
+        {
+            var dbData = await GetAllAsync();
+
+            var columnHeaders = new string[]
+            {
+                "Brand name",
+                "Tool name",
+                "Price",
+                "Info"
+            };
+            var csvData = new StringBuilder();
+
+            csvData.AppendJoin(";", columnHeaders);
+            csvData.AppendLine();
+
+            dbData.ForEach(row => csvData.AppendJoin(";", row.Brand?.Name, row.Tool?.Name, row.Price, row.Info));
+
+            return csvData.ToString();
+        }
     }
 }

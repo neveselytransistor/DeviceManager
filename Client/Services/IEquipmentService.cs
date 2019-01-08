@@ -8,5 +8,6 @@ namespace Client.Services
     {
         Task<List<Equipment>> GetAllAsync();
         Task<Equipment> GetAsync(int id);
+        Task<string> Export();
     }
 }

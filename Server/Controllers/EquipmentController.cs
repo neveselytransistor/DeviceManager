@@ -53,5 +53,12 @@ namespace Server.Controllers
             await _equipmentService.DeleteAsync(id);
             return Ok();
         }
+
+        [HttpPost("Export")]
+        public async Task<IActionResult> Export()
+        {
+            var resultString = await _equipmentService.ExportToCsv();
+            return Ok(resultString);
+        }
     }
 }

@@ -141,5 +141,21 @@ namespace Client
                 Process.Start(dialog.FileName);
             }
         }
+
+        private async void ExportEquipButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var result = await _equipmentService.Export();
+
+            var dialog = new SaveFileDialog
+            {
+                FileName = "EquipmentExport.csv"
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                File.WriteAllText(dialog.FileName, result, Encoding.UTF8);
+                Process.Start(dialog.FileName);
+            }
+        }
     }
 }

@@ -59,8 +59,6 @@ namespace Server.Controllers
         public async Task<IActionResult> Export()
         {
             var resultString = await _entityService.ExportToCsv();
-            //byte[] buffer = Encoding.ASCII.GetBytes(resultString);
-            //return File(buffer, "text/csv", $"Brand.csv");
             return Ok(resultString);
         }
     }
