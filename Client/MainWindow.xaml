@@ -87,6 +87,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <Button x:Name="CreateBrandButton" Content="Create" HorizontalAlignment="Left" Margin="677,10,0,0" VerticalAlignment="Top" Width="75" Click="CreateBrandButton_Click"/>
+                    <Button x:Name="ExportBrandButton" Content="Export" HorizontalAlignment="Left" Margin="590,10,0,0" VerticalAlignment="Top" Width="75" Click="ExportBrandButton_OnClick"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Tools" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="57">

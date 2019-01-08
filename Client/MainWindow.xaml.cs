@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -8,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Client.Models;
 using Client.Services;
+using Microsoft.Win32;
 
 namespace Client
 {
@@ -121,6 +124,22 @@ namespace Client
         {
             var createWindow = new EditBrand(0);
             createWindow.ShowDialog();
+        }
+
+        private async void ExportBrandButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var result = await _brandService.Export();
+
+            var dialog = new SaveFileDialog
+            {
+                FileName = "BrandExport.csv"
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                File.WriteAllText(dialog.FileName, result, Encoding.UTF8);
+                Process.Start(dialog.FileName);
+            }
         }
     }
 }

@@ -61,10 +61,12 @@ namespace Server.Services
             };
             var csvData = new StringBuilder();
 
-            dbData.ForEach(row => { csvData.AppendLine(string.Join(",", row)); });
-            var result = $"{string.Join(",", columnHeaders)}\r\n{csvData.ToString()}";
+            csvData.AppendJoin(";", columnHeaders);
+            csvData.AppendLine();
+
+            dbData.ForEach(row => csvData.AppendJoin(";", row.Name, row.Info));
             
-            return result;
+            return csvData.ToString();
         }
     }
 }

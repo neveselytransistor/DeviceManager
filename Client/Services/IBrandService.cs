@@ -11,5 +11,6 @@ namespace Client.Services
         Task UpdateAsync(Brand entity);
         Task CreateAsync(Brand entity);
         Task DeleteAsync(int id);
+        Task<string> Export();
     }
 }

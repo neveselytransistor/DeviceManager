@@ -54,8 +54,7 @@ namespace Client.Services
         {
             using (var restClient = new RestClient())
             {
-                //await restClient.PostAsync()
-                return null;
+                return await restClient.PostAsync("/Brand/Export");
             }
         }
     }
