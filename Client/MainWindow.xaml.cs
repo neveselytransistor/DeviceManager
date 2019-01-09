@@ -21,14 +21,17 @@ namespace Client
     {
         private readonly EquipmentService _equipmentService;
         private readonly BrandService _brandService;
+        private readonly ToolService _toolService;
         public static DataGrid PublicEquipDataGrid;
         public static DataGrid PublicBrandDataGrid;
+        public static DataGrid PublicToolDataGrid;
 
         public MainWindow()
         {
             InitializeComponent();
             _equipmentService = new EquipmentService();
             _brandService = new BrandService();
+            _toolService = new ToolService();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
@@ -49,6 +52,10 @@ namespace Client
                     var brands = await _brandService.GetAllAsync();
                     BrandDataGrid.ItemsSource = brands;
                     PublicBrandDataGrid = BrandDataGrid;
+
+                    var tools = await _toolService.GetAllAsync();
+                    ToolDataGrid.ItemsSource = tools;
+                    PublicToolDataGrid = ToolDataGrid;
 
                     IsEnabled = true;
 
@@ -155,6 +162,48 @@ namespace Client
             {
                 File.WriteAllText(dialog.FileName, result, Encoding.UTF8);
                 Process.Start(dialog.FileName);
+            }
+        }
+
+        private void EditToolButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ToolDataGrid.SelectedItem is Tool tool)
+            {
+                var id = tool.Id;
+                var createWindow = new EditTool(id);
+                createWindow.ShowDialog();
+            }
+        }
+
+        private void CreateToolButton_Click(object sender, RoutedEventArgs e)
+        {
+            var createWindow = new EditTool(0);
+            createWindow.ShowDialog();
+        }
+
+        private async void ExportToolButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var result = await _toolService.Export();
+
+            var dialog = new SaveFileDialog
+            {
+                FileName = "ToolExport.csv"
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                File.WriteAllText(dialog.FileName, result, Encoding.UTF8);
+                Process.Start(dialog.FileName);
+            }
+        }
+
+        private async void DeleteToolButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ToolDataGrid.SelectedItem is Tool tool)
+            {
+                var id = tool.Id;
+                await _toolService.DeleteAsync(id);
+                ToolDataGrid.ItemsSource = await _toolService.GetAllAsync();
             }
         }
     }

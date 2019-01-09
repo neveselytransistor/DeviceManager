@@ -57,8 +57,8 @@
                 <Grid Background="#FFFDFDFD">
                     <DataGrid Name="BrandDataGrid"  HorizontalAlignment="Left" Height="306" VerticalAlignment="Top" Width="752" AutoGenerateColumns="False" Margin="0,48,0,-0.4">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="120" Header="Brand" Binding="{Binding Path=Name }"/>
-                            <DataGridTemplateColumn Width="220">
+                            <DataGridTextColumn Width="150" Header="Name" Binding="{Binding Path=Name }"/>
+                            <DataGridTemplateColumn Width="280">
                                 <DataGridTemplateColumn.HeaderTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="Information"></TextBlock>
@@ -91,8 +91,43 @@
                     <Button x:Name="ExportBrandButton" Content="Export" HorizontalAlignment="Left" Margin="590,10,0,0" VerticalAlignment="Top" Width="75" Click="ExportBrandButton_OnClick"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Tools" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="57">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Header="Tool" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="57">
+                <Grid Background="#FFFDFDFD">
+                    <DataGrid Name="ToolDataGrid"  HorizontalAlignment="Left" Height="306" VerticalAlignment="Top" Width="752" AutoGenerateColumns="False" Margin="0,48,0,-0.4">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="150" Header="Name" Binding="{Binding Path=Name }"/>
+                            <DataGridTemplateColumn Width="280">
+                                <DataGridTemplateColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="Application"></TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.HeaderTemplate>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=Application}"></TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="100*">
+                                <DataGridTemplateColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="Actions"></TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.HeaderTemplate>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Width="80" x:Name="EditToolButton" Content="Edit" Click="EditToolButton_Click"></Button>
+                                            <Button Width="80" x:Name="DeleteToolButton" Content="Delete" Click="DeleteToolButton_Click"></Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="CreateToolButton" Content="Create" HorizontalAlignment="Left" Margin="677,10,0,0" VerticalAlignment="Top" Width="75" Click="CreateToolButton_Click"/>
+                    <Button x:Name="ExportToolButton" Content="Export" HorizontalAlignment="Left" Margin="590,10,0,0" VerticalAlignment="Top" Width="75" Click="ExportToolButton_OnClick"/>
+                </Grid>
             </TabItem>
         </TabControl>
 

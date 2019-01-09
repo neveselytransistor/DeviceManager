@@ -27,6 +27,7 @@ namespace Server
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddScoped<IEquipmentService, EquipmentService>();
             services.AddScoped<IBrandService, BrandService>();
+            services.AddScoped<IToolService, ToolService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
