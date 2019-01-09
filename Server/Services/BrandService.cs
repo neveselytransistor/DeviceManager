@@ -64,7 +64,7 @@ namespace Server.Services
             csvData.AppendJoin(";", columnHeaders);
             csvData.AppendLine();
 
-            dbData.ForEach(row => csvData.AppendJoin(";", row.Name, row.Info));
+            dbData.ForEach(row => csvData.AppendJoin(";", row.Name, row.Info).AppendLine());
             
             return csvData.ToString();
         }

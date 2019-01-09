@@ -70,7 +70,7 @@ namespace Server.Services
             csvData.AppendJoin(";", columnHeaders);
             csvData.AppendLine();
 
-            dbData.ForEach(row => csvData.AppendJoin(";", row.Brand?.Name, row.Tool?.Name, row.Price, row.Info));
+            dbData.ForEach(row => csvData.AppendJoin(";", row.Brand?.Name, row.Tool?.Name, row.Price, row.Info).AppendLine());
 
             return csvData.ToString();
         }

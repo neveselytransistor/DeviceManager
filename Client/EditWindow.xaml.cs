@@ -23,6 +23,7 @@ namespace Client
     {
         private readonly EquipmentService _equipmentService = new EquipmentService();
         private readonly BrandService _brandService = new BrandService();
+        private readonly ToolService _toolService = new ToolService();
         private readonly int _id;
 
         public EditWindow(int selectedId)
@@ -45,6 +46,7 @@ namespace Client
             entity.Price = price;
             entity.Info = InfoTextBox.Text;
             entity.BrandId = (BrandComboBox.SelectedItem as Brand)?.Id ?? 0;
+            entity.ToolId = (ToolComboBox.SelectedItem as Tool)?.Id ?? 0;
 
             try
             {
@@ -71,6 +73,8 @@ namespace Client
         {
             var brands = await _brandService.GetAllAsync();
             BrandComboBox.ItemsSource = brands;
+            var tools = await _toolService.GetAllAsync();
+            ToolComboBox.ItemsSource = tools;
         }
     }
 }
